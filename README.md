@@ -1,36 +1,165 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projeto Next.js com Autenticação Google
 
-## Getting Started
+## 📋 Descrição
 
-First, run the development server:
+Este projeto é uma aplicação Next.js com TypeScript que implementa autenticação usando NextAuth.js e provedor Google OAuth. A aplicação está estruturada com uma pasta `src` para melhor organização do código.
+
+## 🚀 Funcionalidades
+
+- Autenticação com Google OAuth
+- Rota protegida (/dashboard)
+- Interface responsiva
+- Tipagem TypeScript completa
+- Gerenciamento de sessões
+
+## 🛠️ Tecnologias
+
+- Next.js 14 (App Router)
+- TypeScript
+- NextAuth.js
+- Tailwind CSS (opcional - caso esteja usando)
+
+## 📁 Estrutura do Projeto
+
+```bash
+src/
+├── app/
+│ ├── api/
+│ │ └── auth/
+│ │ └── [...nextauth]/
+│ │ └── route.ts
+│ ├── auth/
+│ │ └── sign-in/
+│ │ └── page.tsx
+│ ├── dashboard/
+│ │ └── page.tsx
+│ ├── components/
+│ │ └── Navbar.tsx
+│ ├── layout.tsx
+│ ├── page.tsx
+│ └── globals.css
+├── lib/
+│ └── auth.ts
+└── types/
+└── next-auth.d.ts
+```
+
+## ⚙️ Configuração
+
+### Variáveis de Ambiente
+
+### Crie um arquivo `.env` na raiz do projeto:
+
+```bash
+GOOGLE_CLIENT_ID=seu_google_client_id_aqui
+GOOGLE_CLIENT_SECRET=seu_google_client_secret_aqui
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=sua_chave_secreta_aqui
+```
+
+## Configuração do Google OAuth
+- Acesse o Google Cloud Console
+- Crie um novo projeto ou selecione um existente
+- Vá para "APIs e Serviços" > "Credenciais"
+
+### Crie um ID do cliente OAuth
+
+- Adicione http://localhost:3000/api/auth/callback/google como URI de redirecionamento autorizado
+
+## Instalação de Dependências
+
+```bash
+npm install next-auth @auth/core
+```
+
+## 🚀 Como Executar
+
+- Clone o repositório
+- Instale as dependências:
+
+```bash
+npm install
+```
+
+- Configure as variáveis de ambiente no arquivo .env.local
+- Execute o projeto em modo de desenvolvimento:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Abra http://localhost:3000 no navegador
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📦 Build para Produção
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy na Vercel
 
-## Learn More
+### Método 1: Conexão com GitHub (Recomendado)
 
-To learn more about Next.js, take a look at the following resources:
+- Faça push do código para um repositório GitHub
+- Acesse vercel.com e faça login com sua conta GitHub
+- Clique em "Add New" > "Project"
+- Selecione seu repositório
+- Configure as variáveis de ambiente no painel da Vercel:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+NEXTAUTH_SECRET
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+NEXTAUTH_URL (https://seu-dominio.vercel.app)
+```
+- Clique em "Deploy"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Método 2: Usando Vercel CLI
 
-## Deploy on Vercel
+- Instale a CLI da Vercel:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm i -g vercel
+```
+- Execute o comando no diretório do projeto:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+vercel
+```
+
+- Siga as instruções no terminal
+
+#### 🔧 Configuração do NextAuth
+- O arquivo principal de configuração está em src/lib/auth.ts:
+
+```bash
+typescript
+import GoogleProvider from "next-auth/providers/google";
+import type { NextAuthOptions } from "next-auth";
+
+export const authOptions: NextAuthOptions = {
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+  ],
+  callbacks: {
+    async session({ session, token }) {
+      if (session?.user) {
+        session.user.id = token.sub as string;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/auth/signin",
+  },
+};
+```
+
+## 📝 Licença
+- Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+## 🤝 Contribuições
+- Contribuições são sempre bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
