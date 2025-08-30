@@ -1,23 +1,35 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import InfoCard from "./components/Cards"
 
 export default function HomePage() {
     const router = useRouter()
 
     return (
-        <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800">
-            <h1 className="text-4xl font-bold mb-4">Bem-vindo ao Meu Site</h1>
-            <p className="text-lg mb-6 max-w-lg text-center">
-                Esta é a página inicial de exemplo. Aqui você pode apresentar uma breve descrição
-                sobre o seu projeto, produto ou serviço.
-            </p>
-            <button
-                onClick={() => router.push("/auth/signin")}
-                className="px-6 py-2 rounded-2xl bg-blue-600 text-white shadow-md hover:bg-blue-700 transition"
-            >
-                Saiba Mais
-            </button>
-        </main>
+        <div className="grid grid-cols-6 grid-rows-6 gap-5">
+            <div className="flex col-span-6 row-span-1 items-center justify-center">
+                <h1 className="text-3xl font-bold pt-8">Application login with google</h1>
+            </div>
+            <div className="flex col-span-3 row-span-4 items-center justify-end col-start-1 row-start-2 px-3">
+                <InfoCard 
+                    buttonLabel="Saiba mais" 
+                    text="Advanced protection against unauthorized access.Use your Google account to access the system quickly and securely!" 
+                    icon="/icons8-cadeado-100.png"
+                />
+            </div>
+            <div className="flex col-span-3 row-span-4 items-center justify-start col-start-4 row-start-2 px-3">
+                <InfoCard
+                    buttonLabel="Saiba mais"
+                    text="When you authenticate with Google, extra layers of verification that you're already familiar with are automatically activated."
+                    icon="/icons8-verificar-100.png"
+                />
+            </div>
+            <div className="col-span-6 col-start-1 row-start-6">
+                <p className="text-xl text-center py-8">
+                    Simple project that implements an authenticated login with the Google API
+                </p>
+            </div>
+        </div>
     )
 }

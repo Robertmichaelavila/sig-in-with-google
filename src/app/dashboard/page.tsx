@@ -15,10 +15,10 @@ export default async function Dashboard() {
                 <div className="px-4 py-6 sm:px-0">
                     <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 p-8">
                         <h1 className="text-2xl font-bold text-gray-900 mb-4">
-                            Bem-vindo, {session.user?.name}!
+                            Welcome, {session.user?.name}!
                         </h1>
                         <p className="text-gray-600">
-                            Você está autenticado com: {session.user?.email}
+                            You are authenticated with: {session.user?.email}
                         </p>
                         <pre className="mt-4 p-4 bg-gray-200 rounded overflow-auto">
                             {JSON.stringify(session, null, 2)}

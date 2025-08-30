@@ -11,7 +11,7 @@ export default function Navbar() {
                 <div className="flex justify-between h-16">
                     <div className="flex">
                         <div className="flex-shrink-0 flex items-center">
-                            <h1 className="text-xl font-bold">Meu App</h1>
+                            <h1 className="text-xl font-bold">My Aplication</h1>
                         </div>
                     </div>
                     <div className="flex items-center">
@@ -29,15 +29,15 @@ export default function Navbar() {
                                     onClick={() => signOut()}
                                     className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded text-gray-800"
                                 >
-                                    Sair
+                                    Sig-out
                                 </button>
                             </div>
                         ) : (
                             <a
                                 href="/auth/signin"
-                                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white"
+                                    className="bg-[#009DBB] hover:bg-blue-700 px-4 py-2 rounded text-white"
                             >
-                                Entrar
+                                Sig-in
                             </a>
                         )}
                     </div>

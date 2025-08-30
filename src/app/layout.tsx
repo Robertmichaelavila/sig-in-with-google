@@ -7,8 +7,8 @@ import Navbar from "./components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "App com Autenticação Google",
-  description: "Exemplo de autenticação com Google em Next.js",
+  title: "App with Autenticated Google",
+  description: "Google authentication example in Next.js",
 };
 
 export default function RootLayout({
